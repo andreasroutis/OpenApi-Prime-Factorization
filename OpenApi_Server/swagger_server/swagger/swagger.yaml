@@ -1,0 +1,74 @@
+openapi: 3.0.3
+info:
+  title: Prime Factorazation API
+  version: 1.0.0
+servers:
+- url: https://localhost:8080
+paths:
+  /primes:
+    post:
+      operationId: primes_post
+      requestBody:
+        description: The numbers to be factorized
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InputNumbers'
+      responses:
+        "200":
+          description: The prime factorization of the input numbers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrimeFactorization'
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+components:
+  schemas:
+    InputNumbers:
+      required:
+      - input_numbers
+      type: object
+      properties:
+        input_numbers:
+          type: array
+          items:
+            maximum: 1000
+            minimum: 1
+            type: integer
+    PrimeFactorization:
+      required:
+      - result
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrimeFactorization_result'
+      example:
+        result:
+        - input_number: 0
+          prime_factors:
+          - 6
+          - 6
+        - input_number: 0
+          prime_factors:
+          - 6
+          - 6
+    PrimeFactorization_result:
+      required:
+      - input_number
+      - prime_factors
+      type: object
+      properties:
+        input_number:
+          type: integer
+        prime_factors:
+          type: array
+          items:
+            type: integer
+      example:
+        input_number: 0
+        prime_factors:
+        - 6
+        - 6
+

@@ -1,0 +1,2 @@
+python -m swagger_server
+python my_client.py 15 57 61
